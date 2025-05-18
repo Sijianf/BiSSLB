@@ -81,7 +81,9 @@ out_ladder$BICs
 ## 👉 Method Summary
 
 BiSSLB models a binary matrix Y as:
-$$p(y_{ij} = 1) = \operatorname{sigmoid}(a_i^T b_j + \mu_i)$$
+
+$$p(y_{ij} = 1) = \text{sigmoid}(a_i^T b_j + \mu_i)$$
+
 The matrices A and B are constrained by spike-and-slab lasso priors to induce sparsity. An optional IBP-style reordering helps emphasize interpretable structures during iteration.
 
 ---
