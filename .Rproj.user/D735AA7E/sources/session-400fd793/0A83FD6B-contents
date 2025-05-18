@@ -1,0 +1,2 @@
+## Use R’s built-in CXX_STD mechanism
+CXX_STD = CXX11
