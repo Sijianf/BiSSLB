@@ -3,7 +3,7 @@
 
 **BiSSLB**: Binary Spike-and-Slab Lasso Biclustering for binary matrices
 
-BiSSLB is an R package for performing sparse biclustering on binary matrices. It uses a Bayesian spike-and-slab prior on matrix factorizations to reveal interpretable biclusters. The core computations are accelerated using `RcppArmadillo`.
+BiSSLB is an R package for performing sparse biclustering on binary matrices. It uses spike-and-slab lasso priors on matrix factorizations to reveal interpretable biclusters. The core computations are accelerated using `Rcpp` and `RcppArmadillo`.
 
 ---
 
@@ -27,11 +27,11 @@ The BiSSLB package includes the following key functions:
 
 | Function              | Description                                                         |
 |-----------------------|---------------------------------------------------------------------|
-| `BiSSLB()`            | Main interface to run biclustering on a binary matrix              |
-| `BiSSLB_ladder()`     | Run `BiSSLB` across a grid of spike prior parameters               |
-| `main_iterations()`   | Core C++ engine performing iterative updates (not user-facing)     |
-| `get_thetas()`        | Estimate sparsity parameters under spike-and-slab prior            |
-| `get_logLikelihood()` | Compute the log-likelihood and BIC of current model state       |
+| `BiSSLB()`            | Main interface to run biclustering on a binary matrix               |
+| `BiSSLB_ladder()`     | Run `BiSSLB` across a grid of spike prior parameters                |
+| `main_iterations()`   | Core C++ engine performing iterative updates (not user-facing)      |
+| `get_thetas()`        | Estimate sparsity parameters under spike-and-slab prior             |
+| `get_logLikelihood()` | Compute the log-likelihood and BIC of current model state           |
 
 ---
 
@@ -78,10 +78,10 @@ out_ladder$BICs
 
 ---
 
-## 🧠 Method Summary
+## 👉 Method Summary
 
 BiSSLB models a binary matrix Y as:
-$P(Y_{ij} = 1) = sigmoid((A B^T)_{ij} + \mu_i)$
+$$p(y_{ij} = 1) = \operatorname{sigmoid}(a_i^T b_j + \mu_i)$$
 The matrices A and B are constrained by spike-and-slab lasso priors to induce sparsity. An optional IBP-style reordering helps emphasize interpretable structures during iteration.
 
 ---
