@@ -1,3 +1,0 @@
-## Use R’s built-in CXX_STD mechanism
-## modern R already uses C++11 by default
-## CXX_STD = CXX11

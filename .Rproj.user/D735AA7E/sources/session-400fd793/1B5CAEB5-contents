@@ -1,4 +1,0 @@
-exportPattern("^[[:alpha:]]+")
-importFrom(Rcpp, evalCpp)
-importFrom("stats", "rbeta", "rexp")
-useDynLib(BiSSLB, .registration = TRUE)
