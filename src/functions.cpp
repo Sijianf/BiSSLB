@@ -7,11 +7,6 @@
 using namespace Rcpp;
 
 
-arma::mat get_logit_matrix(const arma::mat& x) {
-  return 1 / (1 + exp(-x));
-}
-
-
 // Function for double input
 double get_lambdastar_double(double x, double thetas, const arma::vec &lambdas) {
   double pstar0 = (1 - thetas) * lambdas[0] / 2 * exp(-lambdas[0] * std::abs(x));
@@ -297,7 +292,7 @@ List main_iterations(arma::vec mu,
                      int IBP,
                      int I,
                      int J) {
-
+  Rcout << "This is runing new Rcpp marker!" << std::endl;
   // Prepare work
   arma::mat A_lag = A;
   arma::mat B_lag = B;
@@ -410,12 +405,12 @@ List main_iterations(arma::vec mu,
 
     // Re-scale A and B
     rescale_A_B(A, B);
-    // rescale_A_B(A_lag, B_lag);
+    rescale_A_B(A_lag, B_lag);
 
   }
 
   double BIC = get_logLikelihood(Y, xi, mu, A, B, tilde_thetas, thetas, tilde_lambdas, lambdas, tilde_alpha, tilde_beta, alpha, beta)["BIC"];
-
+  
   return List::create(
     Named("A") = A,
     Named("B") = B,

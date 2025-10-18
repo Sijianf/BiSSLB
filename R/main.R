@@ -5,8 +5,8 @@
 #' @param x A number or a list.
 #' @returns A number or a list.
 #' @examples
-#' get_logit(0)
-get_logit <- function(x) {
+#' expit(0)
+expit <- function(x) {
   if (is.list(x)) {
     lapply(x, function(z) 1 / (1 + exp(-z)))
   } else {
@@ -84,14 +84,14 @@ BiSSLB <- function(Y, A = NULL, B = NULL, xi = 1, mu = NULL,
   K <- K_init
 
   Y <- as.matrix(Y)
-
+  
   tilde_lambda_0 <- tilde_lambda_0 # Matrix A's spike parameter
   tilde_lambda_1 <- tilde_lambda_1 # Matrix A's slab parameter
   lambda_0 <- lambda_0 # Matrix B's spike parameter
   lambda_1 <- lambda_1 # Matrix B's slab parameter
   tilde_lambdas <- c(tilde_lambda_0, tilde_lambda_1)
   lambdas <- c(lambda_0, lambda_1)
-
+  
   A_in <- A
   B_in <- B
 
@@ -131,7 +131,7 @@ BiSSLB <- function(Y, A = NULL, B = NULL, xi = 1, mu = NULL,
   if (!is.null(B_in)) B <- B_in
 
   # Initialize other variables
-  if (is.null(mu)) mu <- rowMeans(Y)
+  if (is.null(mu)) mu <- rowMeans(Y) * 0
 
   K <- K_init <- min(K_init, ncol(A))
   tilde_nus <- sort(rbeta(K_init, tilde_alpha, tilde_beta), decreasing = TRUE)
@@ -181,15 +181,26 @@ BiSSLB <- function(Y, A = NULL, B = NULL, xi = 1, mu = NULL,
     thetas = thetas,
     counts = sum(colSums(A != 0) + colSums(B != 0)),
     logLikelihood = logLikelihood_save,
-    BIC = BIC
+    BIC = BIC,
+    parameters = list(tilde_lambdas = c(tilde_lambda_0, tilde_lambda_1),
+                      lambdas = c(lambda_0, lambda_1),
+                      tilde_alpha = tilde_alpha,
+                      tilde_beta = tilde_beta,
+                      alpha = alpha, 
+                      beta = beta,
+                      eta = eta)
   )
 
   # Optionally show the plot
   if (show_plot) {
-    plot(1:length(logLikelihood_save), logLikelihood_save,
-      type = ifelse(length(logLikelihood_save) == 1, "o", "l"),
-      xlab = "Iterations", ylab = "Log Likelihood"
-    )
+    if (length(logLikelihood_save) == 0){
+      print(glue::glue("The plot is skipped as the likelihood not a number (NA)"))
+    } else {
+      plot(1:length(logLikelihood_save), logLikelihood_save,
+           type = ifelse(length(logLikelihood_save) == 1, "o", "l"),
+           xlab = "Iterations", ylab = "Log Likelihood"
+      )
+    }
   }
 
   return(out)
