@@ -1,9 +1,10 @@
 .Rproj.user
-.Rproj
 .Rbuildignore
 .Rhistory
 .RData
 .Ruserdata
+.gitattributes
+*.Rproj
 src/*.o
 src/*.so
 src/*.dll

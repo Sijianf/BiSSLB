@@ -44,6 +44,6 @@
 #' @keywords internal
 #'
 main_iterations <- function(mu, A, B, tilde_thetas, thetas, Y, xi, eta, tilde_lambdas, lambdas, tilde_alpha, tilde_beta, alpha, beta, tol, max_iter, IBP, I, J) {
-    .Call('_BiSSLB_main_iterations', PACKAGE = 'BiSSLB', mu, A, B, tilde_thetas, thetas, Y, xi, eta, tilde_lambdas, lambdas, tilde_alpha, tilde_beta, alpha, beta, tol, max_iter, IBP, I, J)
+    .Call(`_BiSSLB_main_iterations`, mu, A, B, tilde_thetas, thetas, Y, xi, eta, tilde_lambdas, lambdas, tilde_alpha, tilde_beta, alpha, beta, tol, max_iter, IBP, I, J)
 }
 
